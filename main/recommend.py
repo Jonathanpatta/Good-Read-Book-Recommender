@@ -29,7 +29,7 @@ import pickle
 
 
 def get_model():
-    return Word2Vec.load(R"C:\Users\Jonathan\Documents\vit\vit\useless docs\sem7\sain\project\w2v\recui\main\finetuned_model.model")
+    return Word2Vec.load(R"main/finetuned_model.model")
 
 
 
@@ -57,7 +57,7 @@ def remove_punctuation(text):
     return text
 
 def get_and_clean_data():
-    df = pd.read_csv(R"C:\Users\Jonathan\Documents\vit\vit\useless docs\sem7\sain\project\w2v\recui\main\data.csv")
+    df = pd.read_csv(R"main/data.csv")
     
     df['Desc'] = df['Desc'].astype(str)
     df['cleaned'] = df['Desc'].apply(_removeNonAscii)
