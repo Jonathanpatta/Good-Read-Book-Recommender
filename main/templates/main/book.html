@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="shortcut icon" type="image/png" href="https://toppng.com/uploads/preview/book-icon-book-icon-11563642450he58ixg4u9.png"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="https://toppng.com/uploads/preview/book-icon-book-icon-11563642450he58ixg4u9.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Recommendation System
+            </a>
+
+            <form class="form-inline my-2 my-lg-0" method="get" action="/">
+                <input name="query" class="form-control mr-sm-2" type="search" placeholder="Search for books" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+        </div>
+
+        
+      </nav>
+
+      {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success'%}
+                
+                <div class="alert alert-success alert-dismissible fade show animate__animated animate__swing" role="alert">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            {% elif message.tags == 'info'%}
+            <div class="alert alert-info alert-dismissible fade show animate__animated animate__swing" role="alert">
+              {{message}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% elif message.tags == 'warning'%}
+            <div class="alert alert-warning alert-dismissible fade show animate__animated animate__swing" role="alert">
+              {{message}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% elif message.tags == 'error'%}
+            <div class="alert alert-danger alert-dismissible fade show animate__animated animate__swing" role="alert">
+              {{message}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <div class="container-fluid mt-5">
+        <div class="card mb-3" >
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="{{book.image_url}}" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h2 class="card-title">{{book.title}}</h2>
+                  <h5 class="card-subtitle mb-2 text-muted font-italic">{{book.author}}</h5>
+                  <p class="font-weight-bold">Rating: {{book.rating}}/5</p>
+                  <hr class="my-4">
+                  <p class="card-text">{{book.description}}</p>
+                  <hr class="my-4">
+                  <p class="card-text"><small class="text-muted">{{book.genre}}</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+        <div>
+            
+            <h3 class="mb-1">Other books recommended for you:</h3>
+        </div>
+        <div class="list-group">
+            
+            {% for rbook in recommendations %}
+                <a href="/book/{{rbook.id}}" class="list-group-item list-group-item-action">
+                    
+
+
+                    <div class="row no-gutters">
+                        <div class="">
+                            <img src="{{rbook.image_url}}" alt="..." style="height: 100">
+                        </div>
+                        <div class="col-md-11 ml-4">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{rbook.title}}</h5>
+                                <small>{{rbook.author}}</small>
+                            </div>
+                            <p class="mb-1 text-truncate">{{rbook.description}}</p>
+                            <small>{{rbook.genre}}</small>
+                        </div>
+                    </div>
+
+
+                </a>
+            {% endfor %}
+          </div>
+    </div>
+    
+</body>
+</html>

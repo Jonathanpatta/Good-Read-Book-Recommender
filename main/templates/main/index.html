@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation</title>
+
+    <style>
+        
+    #result {
+    border: 1px dotted #ccc;
+    padding: 3px;
+    }
+    #result ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    }
+    #result ul li {
+    padding: 5px 0;
+    }
+    #result ul li:hover {
+    background: #eee;
+    }
+    </style>
+    
+</head>
+<body>
+    <!-- <script src="http://twitter.github.io/typeahead.js/js/jquery-1.10.2.min.js"></script>
+    <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+
+    <script>
+        var Books = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        // prefetch: '../data/films/post_1960.json',
+        remote: {
+            url: '../search?q=%QUERY',
+            wildcard: '%QUERY',
+
+            transform: response => $.map(response, book => ({
+                value: book.title
+                }))
+        }
+        });
+        Books.initialize();
+
+        function BookSearch(q, sync) {
+            
+
+            Books.search(q,sync)
+        }
+
+        console.log(Books)
+
+        $('#books .typeahead').typeahead(null, {
+        //name: 'best-pictures',
+        display: 'value',
+        source: BookSearch,
+            });
+      </script>
+
+    <div id="books">
+        <input class="typeahead" type="text" placeholder="Search For Books">
+      </div> -->
+
+      <script>
+          
+            function showResults(val) {
+                res = document.getElementById("result");
+                res.innerHTML = '';
+                if (val == '') {
+                    return;
+                }
+                let list = '';
+                fetch('/search?q=' + val).then(
+                function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    for (i=0; i<data.length; i++) {
+
+                        document.createElement()
+                    
+                    book = '<a href="/suggest?q='+data[i].title+'>'+"hi"+'</a>'
+                    list += '<li>' + book + '</li>';
+                    }
+                    res.innerHTML = '<ul>' + list + '</ul>';
+                    return true;
+                }).catch(function (err) {
+                    console.warn('Something went wrong.', err);
+                    return false;
+                });
+            }
+      </script>
+
+      
+<form autocomplete="off">
+    <input type="text" name="q" id="q"onKeyUp="showResults(this.value)"/> 
+    <span style="font-weight: 400;"></span> 
+    <div id="result"></div>
+    </form>
+
+      
+    
+</body>
+</html>

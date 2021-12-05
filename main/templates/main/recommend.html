@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation</title>
+    
+</head>
+<body>
+    <script src="http://twitter.github.io/typeahead.js/js/jquery-1.10.2.min.js"></script>
+    <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+
+    <script>
+        var Books = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace(datum.value),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        // prefetch: '../data/films/post_1960.json',
+        remote: {
+            url: 'localhost:8000/search/%QUERY.json',
+            wildcard: '%QUERY',
+
+            transform: response => $.map(response, book => ({
+                value: book.title
+                }))
+        }
+        });
+        Books.initialize();
+
+        console.log(Books)
+
+        $('#books .typeahead').typeahead(null, {
+        //name: 'best-pictures',
+        display: 'value',
+        source: Books
+            });
+      </script>
+
+    <div id="books">
+        <input class="typeahead" type="text" placeholder="Search For Books">
+      </div>
+
+      
+    
+</body>
+</html>
