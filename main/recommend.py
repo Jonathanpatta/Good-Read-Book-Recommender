@@ -1,29 +1,11 @@
-
-from ctypes import sizeof
 import time
-from types import new_class
 import pandas as pd
-import numpy as np
-import nltk
 from nltk.corpus import stopwords
-from sklearn.metrics.pairwise import linear_kernel
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.tokenize import RegexpTokenizer
 import re
-import string
-import random
-from PIL import Image
-import requests
-from io import BytesIO
-import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models import Word2Vec
-from gensim.models.phrases import Phrases, Phraser
-from matplotlib import pyplot
-from gensim.models import KeyedVectors
 
-import sys
 
 import pickle
 
@@ -93,15 +75,14 @@ def vectors(df,model):
             
 
 
-    pickle.dump( word_embeddings, open( R"C:\Users\Jonathan\Documents\vit\vit\useless docs\sem7\sain\project\w2v\recui\main\word_embeddings", "wb" ) )
+    pickle.dump( word_embeddings, open( R"main\word_embeddings", "wb" ) )
 
 
 
 def recommendations(title,df,model):
     
 
-    embeddings = pickle.load( open( R"C:\Users\Jonathan\Documents\vit\vit\useless docs\sem7\sain\project\w2v\recui\main\word_embeddings", "rb" ) )
-    now = time.time()
+    embeddings = pickle.load( open( R"main\word_embeddings", "rb" ) )
 
     cosine_similarities = cosine_similarity(embeddings, embeddings)
 
