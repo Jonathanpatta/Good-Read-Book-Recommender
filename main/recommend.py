@@ -1,19 +1,15 @@
-import time
 import pandas as pd
+import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
 import re
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models import Word2Vec
-
-
+nltk.download('stopwords')
 import pickle
-
 
 def get_model():
     return Word2Vec.load(R"main/finetuned_model.model")
-
-
 
 def _removeNonAscii(s):
     return "".join(i for i in s if  ord(i)<128)
@@ -53,10 +49,6 @@ def get_and_clean_data():
 
 def vectors(df,model):
     word_embeddings = []
-
-
-    
-
     for line in df['cleaned']:
         avgword2vec = None
         count = 0
@@ -72,12 +64,7 @@ def vectors(df,model):
             avgword2vec = avgword2vec / count
         
             word_embeddings.append(avgword2vec)
-            
-
-
     pickle.dump( word_embeddings, open( R"main\word_embeddings", "wb" ) )
-
-
 
 def recommendations(title,df,model):
     
@@ -109,6 +96,4 @@ def search(keyword, df):
     return searched
 
 df = get_and_clean_data()
-
-
 model = get_model()
